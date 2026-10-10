@@ -1,0 +1,10 @@
+CREATE TYPE user_type AS ENUM ('BUYER', 'SUPPLIER', 'ADMIN');
+
+CREATE TABLE users (
+    id         BIGSERIAL PRIMARY KEY,
+    tipo       user_type    NOT NULL,
+    email      VARCHAR(255) NOT NULL UNIQUE,
+    senha_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
