@@ -31,6 +31,12 @@ public class CategoryJpaEntity {
     @Column(name = "slug", nullable = false, unique = true, length = 120)
     private String slug;
 
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
+    private String description;
+
+    @Column(name = "icon_key", length = 255)
+    private String iconKey;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 

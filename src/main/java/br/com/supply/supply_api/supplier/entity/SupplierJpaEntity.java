@@ -1,16 +1,23 @@
 package br.com.supply.supply_api.supplier.entity;
 
+import br.com.supply.supply_api.buyer.repository.entity.SubcategoryJpaEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.FetchType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "suppliers")
@@ -91,6 +98,14 @@ public class SupplierJpaEntity {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "supplier_subcategories",
+            joinColumns = @JoinColumn(name = "supplier_id"),
+            inverseJoinColumns = @JoinColumn(name = "subcategory_id")
+    )
+    private Set<SubcategoryJpaEntity> subcategories = new LinkedHashSet<>();
 
     @PrePersist
     void onCreate() {
